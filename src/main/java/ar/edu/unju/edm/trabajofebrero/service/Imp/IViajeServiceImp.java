@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.trabajofebrero.service.Imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,18 @@ public class IViajeServiceImp implements IViajeService {
       return viajeRepository.save(viajeAModificar);
     }
     return null;
+  }
+
+  @Override
+  public List<Viaje> listarViajesActivos() {
+    List<Viaje> viajes = (List<Viaje>) viajeRepository.findAll();
+    List<Viaje> viajesActivos = new ArrayList<Viaje>();
+    for (Viaje v : viajes) {
+      if (v.getEstado().equals(true)) {
+        viajesActivos.add(v);
+      }
+    }
+    return viajesActivos;
   }
 
   @Override

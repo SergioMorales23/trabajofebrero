@@ -8,7 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,20 +23,11 @@ public class Viaje {
   private Long id;
   @Enumerated(EnumType.STRING)
   private Tipo tipo;
-  @Enumerated(EnumType.STRING)
-  private Costo costo;
-  @OneToOne
+  private Integer costo;
+  @ManyToOne
   private Conductor conductor;
   private Boolean estado;
 
   public Viaje() {
   }
-}
-
-enum Tipo {
-  Corta, Media, Larga;
-}
-
-enum Costo {
-  SIETE_MIL, DIEZ_MIL, VEINTE_MIL
 }

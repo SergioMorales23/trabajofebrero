@@ -7,7 +7,7 @@ import ar.edu.unju.edm.trabajofebrero.model.Conductor;
 public interface IConductorService {
   public void guardarConductor(Conductor conductor);
 
-  public List<Conductor> listarConductores();
+  public List<Conductor> listarConductoresActivos();
 
   public void eliminarConductor(Long id);
 

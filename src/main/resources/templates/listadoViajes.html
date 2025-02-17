@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Viajes</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div th:insert="~{/layouts/nav :: nav}"></div>
+  <div class="container mt-5">
+    <h2>Lista de Viajes</h2>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Costo</th>
+          <th>Conductor</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="viaje : ${viajes}">
+          <td th:text="${viaje.id}"></td>
+          <td th:text="${viaje.tipo}"></td>
+          <td th:text="${viaje.costo}"></td>
+          <td th:text="${viaje.conductor.nombre + ' ' + viaje.conductor.apellido}"></td>
+          <td th:text="${viaje.estado} ? 'Activo' : 'Inactivo'"></td>
+          <td>
+            <a th:href="@{/viajes/editar/{id}(id=${viaje.id})}" class="btn btn-warning btn-sm">Editar</a>
+            <a th:href="@{/viajes/eliminar/{id}(id=${viaje.id})}" class="btn btn-danger btn-sm"
+              onclick="return confirm('¿Estás seguro de eliminar este viaje?');">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/nuevoViaje" class="btn btn-primary">Nuevo Viaje</a>
+  </div>
+</body>
+
+</html>

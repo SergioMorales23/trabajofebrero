@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.trabajofebrero.service.Imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,19 @@ public class IConductorServiceImp implements IConductorService {
 
   @Override
   public void guardarConductor(Conductor conductor) {
-    conductor.setEstado(true);
     conductorRepository.save(conductor);
   }
 
   @Override
-  public List<Conductor> listarConductores() {
-    return (List<Conductor>) conductorRepository.findAll();
+  public List<Conductor> listarConductoresActivos() {
+    List<Conductor> conductores = (List<Conductor>) conductorRepository.findAll();
+    List<Conductor> conductoresActivos = new ArrayList<>();
+    for (Conductor conductor : conductores) {
+      if (conductor.getEstado()) {
+        conductoresActivos.add(conductor);
+      }
+    }
+    return conductoresActivos;
   }
 
   @Override

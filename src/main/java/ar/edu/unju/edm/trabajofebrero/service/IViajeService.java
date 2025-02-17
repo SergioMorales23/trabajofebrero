@@ -13,5 +13,7 @@ public interface IViajeService {
 
   public Viaje modificarViaje(Viaje viaje);
 
+  public List<Viaje> listarViajesActivos();
+
   public List<Viaje> listarViajes();
 }

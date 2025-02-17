@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Viaje</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div th:insert="~{/layouts/nav :: nav}"></div>
+  <div class="container mt-5">
+    <div th:if="${mensajeError}" class="alert alert-danger" role="alert">
+      <span th:text="${mensajeError}"></span>
+    </div>
+    <h2>Crear Viaje</h2>
+    <form th:action="@{/viajes/precio}" th:object="${viaje}" method="post" class="mt-4">
+      <input type="hidden" th:field="*{id}">
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo de Viaje</label>
+        <select id="tipo" class="form-select" th:field="*{tipo}" required>
+          <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}">
+          </option>
+        </select>
+      </div>
+
+      <input type="hidden" th:field="*{costo}">
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Conductor</label>
+        <select class="form-control" id="conductor" name="conductor" required>
+          <th:block th:each="conductor : ${conductores}">
+            <option th:value="${conductor.id}" th:data-tipo-automovil="${conductor.tipoAutomovil}">
+              [[${conductor.nombre}]] [[${conductor.apellido}]] - [[${conductor.tipoAutomovil}]]
+            </option>
+          </th:block>
+        </select>
+      </div>
+
+      <input type="hidden" th:field="*{estado}">
+
+      <button type="submit" class="btn btn-primary">Hacer Viaje</button>
+    </form>
+  </div>
+</body>
+
+</html>

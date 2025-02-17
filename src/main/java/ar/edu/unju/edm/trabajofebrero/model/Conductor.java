@@ -2,6 +2,7 @@ package ar.edu.unju.edm.trabajofebrero.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class Conductor {
   private Long id;
   private String nombre;
   private String apellido;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate fechaNacimiento;
   private String automovil;
   @Enumerated(EnumType.STRING)
@@ -31,8 +33,4 @@ public class Conductor {
 
   public Conductor() {
   }
-}
-
-enum TipoAutomovil {
-  X, Luxe, Premium;
 }
