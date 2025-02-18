@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.trabajofebrero.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unju.edm.trabajofebrero.model.Conductor;
 import ar.edu.unju.edm.trabajofebrero.service.IConductorService;
@@ -26,9 +28,18 @@ public class ConductorController {
   }
 
   @PostMapping("/conductores/guardar")
-  public String postGuardarConductor(Conductor conductor) {
-    conductorService.guardarConductor(conductor);
-    return "redirect:/conductores";
+  public String postGuardarConductor(Conductor conductor, RedirectAttributes redirectAttributes) {
+    try {
+      if (conductor.getFechaNacimiento().getYear() - LocalDate.now().getYear() < 18) {
+        throw new RuntimeException("El conductor no puede ser menor de edad");
+      }
+      conductorService.guardarConductor(conductor);
+      return "redirect:/conductores";
+    } catch (RuntimeException e) {
+      redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
+
+      return "redirect:/nuevoConductor";
+    }
   }
 
   @GetMapping("/conductores")
