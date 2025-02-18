@@ -30,7 +30,6 @@
           <td th:text="${viaje.conductor.nombre + ' ' + viaje.conductor.apellido}"></td>
           <td th:text="${viaje.estado} ? 'Activo' : 'Inactivo'"></td>
           <td>
-            <a th:href="@{/viajes/editar/{id}(id=${viaje.id})}" class="btn btn-warning btn-sm">Editar</a>
             <a th:href="@{/viajes/eliminar/{id}(id=${viaje.id})}" class="btn btn-danger btn-sm"
               onclick="return confirm('¿Estás seguro de eliminar este viaje?');">Eliminar</a>
           </td>

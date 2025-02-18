@@ -30,7 +30,7 @@ public class ConductorController {
   @PostMapping("/conductores/guardar")
   public String postGuardarConductor(Conductor conductor, RedirectAttributes redirectAttributes) {
     try {
-      if (conductor.getFechaNacimiento().getYear() - LocalDate.now().getYear() < 18) {
+      if (LocalDate.now().getYear() - conductor.getFechaNacimiento().getYear() < 18) {
         throw new RuntimeException("El conductor no puede ser menor de edad");
       }
       conductorService.guardarConductor(conductor);
