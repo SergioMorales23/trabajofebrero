@@ -31,10 +31,9 @@ public class ViajeController {
   }
 
   @PostMapping("/viajes/precio")
-  public ModelAndView postVerificarViaje(@ModelAttribute Viaje viaje, RedirectAttributes redirectAttributes) {
+  public String postVerificarViaje(@ModelAttribute Viaje viaje, RedirectAttributes redirectAttributes) {
     try {
-      ModelAndView modelView = new ModelAndView("ConfirmarViaje");
-      modelView.addObject("viaje", viaje);
+      System.out.println(viaje.getConductor().getApellido());
       Integer precio = 0;
       if (viaje.getTipo().toString() == "Corta") {
         precio = 7000;
@@ -58,28 +57,14 @@ public class ViajeController {
           throw new RuntimeException("El conductor ya tiene un viaje asignado");
         }
       }
-      modelView.addObject("precio", precio);
-      return modelView;
+      viaje.setCosto(precio);
+      viajeService.guardarViaje(viaje);
+      return "redirect:/viajes";
     } catch (RuntimeException e) {
       redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
 
-      return new ModelAndView("redirect:/nuevoViaje");
+      return "redirect:/nuevoViaje";
     }
-  }
-
-  @PostMapping("/viajes/guardar")
-  public String postGuardarViaje(@ModelAttribute Viaje viaje) {
-    if (viaje.getTipo().toString() == "Corta") {
-      viaje.setCosto(7000);
-    } else {
-      if (viaje.getTipo().toString() == "Media") {
-        viaje.setCosto(10000);
-      } else {
-        viaje.setCosto(20000);
-      }
-    }
-    viajeService.guardarViaje(viaje);
-    return "redirect:/viajes";
   }
 
   @GetMapping("/viajes")

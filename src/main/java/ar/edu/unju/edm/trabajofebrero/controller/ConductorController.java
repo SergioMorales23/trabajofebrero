@@ -12,9 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unju.edm.trabajofebrero.model.Conductor;
 import ar.edu.unju.edm.trabajofebrero.service.IConductorService;
 
-@Controller
+@Controller // anotacion para indicar que es un controlador
 public class ConductorController {
-  @Autowired
+  @Autowired // inyeccion de dependencia
   IConductorService conductorService;
 
   @GetMapping("/nuevoConductor")
@@ -38,7 +38,7 @@ public class ConductorController {
     return modelView;
   }
 
-  @GetMapping("/eliminarConductor/{id}")
+  @GetMapping("/conductores/eliminar/{id}")
   public String eliminarConductor(@PathVariable(name = "id") Long id) {
     conductorService.eliminarConductor(id);
     return "redirect:/conductores";
