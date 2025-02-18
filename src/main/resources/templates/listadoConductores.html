@@ -17,7 +17,7 @@
           <th>ID</th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Fecha de Nacimiento</th>
+          <th>Edad</th>
           <th>Automóvil</th>
           <th>Tipo de Automóvil</th>
           <th>Estado</th>
@@ -29,7 +29,7 @@
           <td th:text="${conductor.id}"></td>
           <td th:text="${conductor.nombre}"></td>
           <td th:text="${conductor.apellido}"></td>
-          <td th:text="${conductor.fechaNacimiento}"></td>
+          <td th:text="${#temporals.year(#temporals.createNow()) - conductor.fechaNacimiento.getYear()}"></td>
           <td th:text="${conductor.automovil}"></td>
           <td th:text="${conductor.tipoAutomovil}"></td>
           <td th:text="${conductor.estado} ? 'Activo' : 'Inactivo'"></td>
